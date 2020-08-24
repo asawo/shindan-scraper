@@ -1,13 +1,10 @@
 const rp = require('request-promise');
-const otcsv = require('objects-to-csv');
 const cheerio = require('cheerio');
 
 const baseURL = 'https://shindanmaker.com/c/list?mode=hot';
 
 const getShindanData = async () => {
 	const html = await rp(baseURL);
-
-	// document.querySelector("#list_result > tbody > tr:nth-child(1)")
 
 	const shindanMap = cheerio(
 		'#list_result > tbody > tr > td.list_shindantitle > a',
