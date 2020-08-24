@@ -1,5 +1,7 @@
 const rp = require('request-promise');
 const cheerio = require('cheerio');
+const { App } = require('@slack/bolt');
+require('dotenv').config();
 
 const baseURL = 'https://shindanmaker.com/c/list?mode=hot';
 
@@ -22,10 +24,29 @@ const getShindanData = async () => {
 	return shindanMap;
 };
 
-getShindanData()
-	.then((data) => {
-		console.log(data);
-	})
-	.catch((error) => {
-		console.log(error);
-	});
+const bot = new App({
+	signingSecret: process.env.SLACK_SIGNING_SECRET,
+	token: process.env.SLACK_BOT_TOKEN,
+});
+
+(async () => {
+	await bot.start(process.env.PORT || 3000);
+
+	console.log('⚡️ Bolt app is running on localhost 3000!');
+})();
+
+bot.command('/shindan', async ({ ack, say }) => {
+	try {
+		await ack();
+		await say(`*Loading top 10 shindans* :dash: :dash: :dash:`);
+
+		// need to improve this
+		const shindanMap = await getShindanData();
+		for (let i = 0; i < shindanMap.length; i++) {
+			await say(`${i + 1}. ${shindanMap[i].title} - \`${shindanMap[i].link}\``);
+		}
+		shindanMap.forEach(async (item) => {});
+	} catch (e) {
+		console.log(`error responding ${e}`);
+	}
+});
