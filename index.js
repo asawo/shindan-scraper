@@ -22,6 +22,10 @@ const getShindanData = async () => {
 	return shindanMap;
 };
 
-getShindanData().then((data) => {
-	console.log(data);
-});
+getShindanData()
+	.then((data) => {
+		console.log(data);
+	})
+	.catch((error) => {
+		console.log(error);
+	});
