@@ -47,7 +47,7 @@ bot.command('/shindan', async ({ ack, say }) => {
 
 bot.message('gil shindan', async ({ message, say }) => {
 	let randomNum = Math.floor(Math.random() * 10);
-	// console.log(randomNum);
+
 	try {
 		const shindanMap = await getShindanData();
 		await say(
