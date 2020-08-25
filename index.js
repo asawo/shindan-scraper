@@ -32,18 +32,103 @@ const bot = new App({
 bot.command('/shindan', async ({ ack, say }) => {
 	try {
 		await ack();
-		await say(`*Loading top 10 shindans* :dash: :dash: :dash:`);
+		await say(`*Loading...* :dash: :dash: :dash:`);
+
+		const shindanMap = await getShindanData();
 
 		// need to improve this
-		const shindanMap = await getShindanData();
-		for (let i = 0; i < shindanMap.length; i++) {
-			await say(`${i + 1}. ${shindanMap[i].title} - \`${shindanMap[i].link}\``);
-		}
-		shindanMap.forEach(async (item) => {});
+
+		await say({
+			blocks: [
+				{
+					type: 'divider',
+				},
+				{
+					type: 'header',
+					text: {
+						type: 'plain_text',
+						text: '🔥 Hottest 10 🔥',
+						emoji: true,
+					},
+				},
+				{
+					type: 'section',
+					text: {
+						type: 'mrkdwn',
+						text: '*1.* ' + shindanMap[0].title + '\n`' + shindanMap[0].link + '`',
+					},
+				},
+				{
+					type: 'section',
+					text: {
+						type: 'mrkdwn',
+						text: '*2.* ' + shindanMap[1].title + '\n`' + shindanMap[1].link + '`',
+					},
+				},
+				{
+					type: 'section',
+					text: {
+						type: 'mrkdwn',
+						text: '*3.* ' + shindanMap[2].title + '\n`' + shindanMap[2].link + '`',
+					},
+				},
+				{
+					type: 'section',
+					text: {
+						type: 'mrkdwn',
+						text: '*4.* ' + shindanMap[3].title + '\n`' + shindanMap[3].link + '`',
+					},
+				},
+				{
+					type: 'section',
+					text: {
+						type: 'mrkdwn',
+						text: '*5.* ' + shindanMap[4].title + '\n`' + shindanMap[4].link + '`',
+					},
+				},
+				{
+					type: 'section',
+					text: {
+						type: 'mrkdwn',
+						text: '*6.* ' + shindanMap[5].title + '\n`' + shindanMap[5].link + '`',
+					},
+				},
+				{
+					type: 'section',
+					text: {
+						type: 'mrkdwn',
+						text: '*7.* ' + shindanMap[6].title + '\n`' + shindanMap[6].link + '`',
+					},
+				},
+				{
+					type: 'section',
+					text: {
+						type: 'mrkdwn',
+						text: '*8.* ' + shindanMap[7].title + '\n`' + shindanMap[7].link + '`',
+					},
+				},
+				{
+					type: 'section',
+					text: {
+						type: 'mrkdwn',
+						text: '*9.* ' + shindanMap[8].title + '\n`' + shindanMap[8].link + '`',
+					},
+				},
+				{
+					type: 'section',
+					text: {
+						type: 'mrkdwn',
+						text: '*10.* ' + shindanMap[9].title + '\n`' + shindanMap[9].link + '`',
+					},
+				},
+			],
+		});
 	} catch (e) {
 		console.log(`error responding ${e}`);
 	}
 });
+
+const keywords = 'gil shindan' || 'Gil Shindan' || 'Gil shindan';
 
 bot.message('gil shindan', async ({ message, say }) => {
 	let randomNum = Math.floor(Math.random() * 10);
