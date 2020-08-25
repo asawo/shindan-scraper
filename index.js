@@ -29,12 +29,6 @@ const bot = new App({
 	token: process.env.SLACK_BOT_TOKEN,
 });
 
-(async () => {
-	await bot.start(process.env.PORT || 3000);
-
-	console.log('⚡️ Bolt app is running on localhost 3000!');
-})();
-
 bot.command('/shindan', async ({ ack, say }) => {
 	try {
 		await ack();
@@ -50,3 +44,22 @@ bot.command('/shindan', async ({ ack, say }) => {
 		console.log(`error responding ${e}`);
 	}
 });
+
+bot.message('gil shindan', async ({ message, say }) => {
+	let randomNum = Math.floor(Math.random() * 10);
+	// console.log(randomNum);
+	try {
+		const shindanMap = await getShindanData();
+		await say(
+			`<@${message.user}> your gil shindan is: ${shindanMap[randomNum].title} \`${shindanMap[randomNum].link}\``
+		);
+	} catch (e) {
+		console.log(`error responding ${e}`);
+	}
+});
+
+(async () => {
+	await bot.start(process.env.PORT || 3000);
+
+	console.log('⚡️ Bolt app is running on localhost 3000!');
+})();
