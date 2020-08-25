@@ -36,8 +36,6 @@ bot.command('/shindan', async ({ ack, say }) => {
 
 		const shindanMap = await getShindanData();
 
-		// need to improve this
-
 		await say({
 			blocks: [
 				{
@@ -127,8 +125,6 @@ bot.command('/shindan', async ({ ack, say }) => {
 		console.log(`error responding ${e}`);
 	}
 });
-
-const keywords = 'gil shindan' || 'Gil Shindan' || 'Gil shindan';
 
 bot.message('gil shindan', async ({ message, say }) => {
 	let randomNum = Math.floor(Math.random() * 10);
