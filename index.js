@@ -37,9 +37,7 @@ bot.command('/shindan', async ({ ack, say }) => {
 
     await say({
       blocks: [
-        {
-          type: 'divider',
-        },
+        { type: 'divider' },
         {
           type: 'header',
           text: {
@@ -72,18 +70,21 @@ bot.command('/shindan', async ({ ack, say }) => {
   }
 });
 
-bot.message('gil shindan', async ({ message, say }) => {
-  let randomNum = Math.floor(Math.random() * 10);
+bot.message(
+  /gil shindan|Gil shindan|random shindan|give me shindan/,
+  async ({ message, say }) => {
+    let randomNum = Math.floor(Math.random() * 10);
 
-  try {
-    const shindanMap = await getShindanData();
-    await say(
-      `<@${message.user}> your gil shindan is: ${shindanMap[randomNum].title} \`${shindanMap[randomNum].link}\``
-    );
-  } catch (e) {
-    console.log(`error responding ${e}`);
+    try {
+      const shindanMap = await getShindanData();
+      await say(
+        `<@${message.user}> your gil shindan is: ${shindanMap[randomNum].title} \`${shindanMap[randomNum].link}\``
+      );
+    } catch (e) {
+      console.log(`error responding ${e}`);
+    }
   }
-});
+);
 
 (async () => {
   await bot.start(process.env.PORT || 3000);
