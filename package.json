@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "concurrently --kill-others \"ngrok http 3000\" \"node shindan.js\""
 	},
 	"keywords": [],
 	"author": "",
@@ -13,7 +14,11 @@
 		"@slack/bolt": "^2.3.0",
 		"cheerio": "^1.0.0-rc.3",
 		"dotenv": "^8.2.0",
+		"nightmare": "^3.0.2",
 		"request": "^2.88.2",
 		"request-promise": "^4.2.6"
+	},
+	"devDependencies": {
+		"concurrently": "^5.3.0"
 	}
 }
