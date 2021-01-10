@@ -78,9 +78,8 @@ bot.message(
       }
    }
 );
-
    
 (async () => {
-   await bot.start(process.env.PORT || 3000);
-   console.log('⚡️ Bolt app is running on localhost 3000!');
+   await bot.start(5000);
+   console.log('⚡️ Bolt app is running on localhost 5000!');
 })();
