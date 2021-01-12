@@ -1,6 +1,6 @@
 const { App } = require('@slack/bolt');
 const { getShindanList } = require('./shindanList')
-const { getShindanResult } = require('./gilShindan')
+const { getShindanResult } = require('./puppeteer')
 require('dotenv').config();
 
 const bot = new App({
@@ -17,11 +17,13 @@ const userObj = {
    UUMDEN613: "アド",
    UU8FL84DQ: "クリス",
    U011W9GEY5P: "ホゼ",
-   UUPEWJ7GE: "ジミー"
+   UUPEWJ7GE: "ジミー",
+   UUM4C1FKN: "ルアン"
 }
 
 // Return list of top 10 shindans
 bot.command('/shindan', async ({ ack, say }) => {
+   console.info("/shindan called")
    try {
      await ack();
      await say(`*Loading...* :dash: :dash: :dash:`);
@@ -65,14 +67,14 @@ bot.command('/shindan', async ({ ack, say }) => {
 bot.message(
    /gil shindan|random shindan|give me shindan/i,
    async ({ message, say }) => {
+      console.info("'gil shindan' called")
       let randomNum = Math.floor(Math.random() * 10);
-      
       try {
          const shindanMap = await getShindanList();
-         username = userObj[message.user];
+         const username = userObj[message.user];
+         await say(`<@${message.user}>さんの診断　:raised_hands:\n*「${shindanMap[randomNum].title}」*`)
          const result = await getShindanResult(username, shindanMap[randomNum].link);
-         const response = `<@${message.user}>さんの診断　:raised_hands:\n*「${shindanMap[randomNum].title}」*\n\n${result}`
-         say(response);
+         await say(result);
       } catch (e) {
          console.error(`error in message listener ${e}`);
       }
@@ -80,6 +82,6 @@ bot.message(
 );
    
 (async () => {
-   await bot.start(5000);
-   console.log('⚡️ Bolt app is running on localhost 5000!');
+   await bot.start(8080);
+   console.info('⚡️ Bolt app is running on localhost 8080!');
 })();

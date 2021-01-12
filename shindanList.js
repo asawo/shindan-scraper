@@ -1,6 +1,6 @@
 const rp = require('request-promise');
 const cheerio = require('cheerio');
-const baseURL = 'https://shindanmaker.com/c/list?mode=hot';
+const baseURL = 'https://shindanmaker.com/c/list?mode=chart';
 
 const getShindanList = async () => {
   const html = await rp(baseURL);

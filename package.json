@@ -5,10 +5,10 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "concurrently --kill-others \"ngrok http 3000\" \"node shindan.js\"",
-		"start": "xvfb-run --server-args='-screen 0 1280x2000x24' pm2-runtime index.js",
-		"docker:build": "docker build -t asawo/shindan .",
-		"docker:run": "docker run -p 5000:5000 asawo/shindan"
+		"dev": "node index.js",
+		"start": "node index.js",
+		"docker:build": "docker build -t gcr.io/kouzoh-p-asawo/shindan .",
+		"docker:run": "docker run -p 8080:8080 gcr.io/kouzoh-p-asawo/shindan"
 	},
 	"keywords": [],
 	"author": "",
@@ -17,11 +17,8 @@
 		"@slack/bolt": "^2.3.0",
 		"cheerio": "^1.0.0-rc.3",
 		"dotenv": "^8.2.0",
-		"nightmare": "^3.0.2",
+		"puppeteer": "^5.5.0",
 		"request": "^2.88.2",
 		"request-promise": "^4.2.6"
-	},
-	"devDependencies": {
-		"concurrently": "^5.3.0"
 	}
 }

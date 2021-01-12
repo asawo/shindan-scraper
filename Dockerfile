@@ -1,38 +1,19 @@
-FROM node:14
+FROM node:buster-slim
 
-RUN apt-get update
+RUN  apt-get update \
+     && apt-get install -y wget gnupg ca-certificates \
+     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+     && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+     && apt-get update \
+     && apt-get install -y google-chrome-stable \
+     && rm -rf /var/lib/apt/lists/* \
+     && wget --quiet https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -O /usr/sbin/wait-for-it.sh \
+     && chmod +x /usr/sbin/wait-for-it.sh
 
 COPY . .
+RUN npm i
 
-# Installing the packages needed to run Nightmare
-RUN apt-get install -y \
-  xvfb \
-  x11-xkb-utils \
-  xfonts-100dpi \
-  xfonts-75dpi \
-  xfonts-scalable \
-  xfonts-cyrillic \
-  x11-apps \
-  clang \
-  libdbus-1-dev \
-  libgtk2.0-dev \
-  libnotify-dev \
-  libgnome-keyring-dev \
-  libgconf2-dev \
-  libasound2-dev \
-  libcap-dev \
-  libcups2-dev \
-  libxtst-dev \
-  libxss1 \
-  libnss3-dev \
-  gcc-multilib \
-  g++-multilib
-
-RUN npm install pm2 -g
-
-RUN npm install
-
-EXPOSE 5000
+EXPOSE 8080
 ENV HOST=0.0.0.0
 
 CMD ["npm", "start"]
