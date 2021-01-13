@@ -13,7 +13,8 @@ RUN  apt-get update \
 COPY . .
 RUN npm i
 
-EXPOSE 8080
+EXPOSE 5000
+# EXPOSE 8080
 ENV HOST=0.0.0.0
 
 CMD ["npm", "start"]
