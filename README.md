@@ -4,7 +4,7 @@ A simple web scraper using node.js & cheerio.
 
 I'm just getting the hottest daily shindans from https://shindanmaker.com/ and returning the title + link in json format.
 
-### Update
+### Update (Jan 2021)
 Added nightmare.js and puppeteer.js to experiment with headless browsers.
 
 ## 🤖 Shindan-bot
