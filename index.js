@@ -22,10 +22,11 @@ const userObj = {
 }
 
 // Return list of top 10 shindans
-bot.command('/shindan', async ({ ack, say }) => {
+bot.message(
+  /shindan list|hot shindans/i,
+  async ({ message, say }) => {
    console.info("/shindan called")
    try {
-     await ack();
      await say(`*Loading...* :dash: :dash: :dash:`);
      const shindanMap = await getShindanList();
      await say({
